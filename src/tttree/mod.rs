@@ -29,3 +29,6 @@ impl<T> TwoThreeTree<T> {
         }
     }
 }
+
+pub fn verify<T>(root: TwoThreeTree<T>) -> bool {
+}
