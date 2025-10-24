@@ -1,3 +1,6 @@
+mod tttree;
+use tttree::TwoThreeTree;
+
 fn main() {
-    println!("Hello, world!");
+    // Let's create suitable examples
 }
