@@ -112,7 +112,7 @@ pub fn verify_well_ordering<T: Copy + Ord>(node: &TwoThreeTree<T>) -> bool {
     }
 }
 
-pub fn vfh_aux<T: Copy + Ord>(node: &TwoThreeTree<T>, height: usize, acc: usize) -> bool {
+fn vfh_aux<T: Copy + Ord>(node: &TwoThreeTree<T>, height: usize, acc: usize) -> bool {
     match node {
         Leaf => height == acc,
         TwoNode { l, r, ..} => {
