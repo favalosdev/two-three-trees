@@ -112,22 +112,22 @@ pub fn verify_well_ordering<T: Copy + Ord>(node: &TwoThreeTree<T>) -> bool {
     }
 }
 
-fn vhi_aux<T: Copy + Ord>(node: &TwoThreeTree<T>, height: usize, acc: usize) -> bool {
+fn vpli_aux<T: Copy + Ord>(node: &TwoThreeTree<T>, height: usize, acc: usize) -> bool {
     match node {
         Leaf => height == acc,
         TwoNode { l, r, ..} => {
-            vhi_aux(&(*l), height, acc + 1) &&
-            vhi_aux(&(*r), height, acc + 1)
+            vpli_aux(&(*l), height, acc + 1) &&
+            vpli_aux(&(*r), height, acc + 1)
         },
         ThreeNode { l, m, r, .. } => {
-            vhi_aux(&(*l), height, acc + 1) &&
-            vhi_aux(&(*m), height, acc + 1) &&
-            vhi_aux(&(*r), height, acc + 1)
+            vpli_aux(&(*l), height, acc + 1) &&
+            vpli_aux(&(*m), height, acc + 1) &&
+            vpli_aux(&(*r), height, acc + 1)
         }
     }
 }
 
-pub fn verify_height_invariance<T: Copy + Ord>(node: &TwoThreeTree<T>) -> bool {
+pub fn verify_path_length_invariance<T: Copy + Ord>(node: &TwoThreeTree<T>) -> bool {
     let height = get_height(node);
-    vhi_aux(node, height, 0)
+    vpli_aux(node, height, 0)
 }
