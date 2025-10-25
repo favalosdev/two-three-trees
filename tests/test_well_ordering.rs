@@ -2,7 +2,7 @@ mod util;
 
 use util::generate_examples::{ex_1, ex_2, ex_3, ex_4};
 use util::tree::{verify_well_ordering, Comparison};
- struct Dummy; 
+struct Dummy; 
 
 impl <T: Copy + Ord> Comparison<T> for Dummy {
     fn check(&self, _: &T) -> bool {
