@@ -1,4 +1,4 @@
-use two_three_trees::tttree::TwoThreeTree;
+use two_three_trees::tttree::{TwoThreeTree, get_height};
 use TwoThreeTree::{Leaf, TwoNode, ThreeNode};
 
 pub trait Comparison<T: Copy + Ord> {
@@ -110,4 +110,24 @@ pub fn verify_well_ordering<T: Copy + Ord>(node: &TwoThreeTree<T>) -> bool {
         },
         Leaf => true
     }
+}
+
+pub fn vfh_aux<T: Copy + Ord>(node: &TwoThreeTree<T>, height: usize, acc: usize) -> bool {
+    match node {
+        Leaf => height == acc,
+        TwoNode { l, r, ..} => {
+            vfh_aux(&(*l), height, acc + 1) &&
+            vfh_aux(&(*r), height, acc + 1)
+        },
+        ThreeNode { l, m, r, .. } => {
+            vfh_aux(&(*l), height, acc + 1) &&
+            vfh_aux(&(*m), height, acc + 1) &&
+            vfh_aux(&(*r), height, acc + 1)
+        }
+    }
+}
+
+pub fn verify_height_invariance<T: Copy + Ord>(node: &TwoThreeTree<T>) -> bool {
+    let height = get_height(node);
+    vfh_aux(node, height, 0)
 }

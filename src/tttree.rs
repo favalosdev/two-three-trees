@@ -23,3 +23,15 @@ impl<T: Copy + Ord> TwoThreeTree<T> {
         }
     }
 }
+
+fn get_height_aux<T: Copy + Ord>(node: &TwoThreeTree<T>, acc: usize) -> usize {
+    match node {
+        TwoThreeTree::Leaf => acc,
+        TwoThreeTree::TwoNode { l, ..} => get_height_aux(&(*l), acc + 1),
+        TwoThreeTree::ThreeNode { l, ..} => get_height_aux(&(*l), acc + 1),
+    }
+}
+
+pub fn get_height<T: Copy + Ord>(node: &TwoThreeTree<T>) -> usize {
+    get_height_aux(node, 0)
+}
