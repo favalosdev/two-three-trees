@@ -2,7 +2,7 @@ use two_three_trees::tttree::TwoThreeTree;
 
 pub fn ex_1() -> TwoThreeTree<u8> {
     let ll = TwoThreeTree::new_two_node(1, None, None);
-    let lr= TwoThreeTree::new_two_node(3, None, None);
+    let lr= TwoThreeTree::new_two_node(200, None, None);
     let l = TwoThreeTree::new_two_node(2, Some(ll), Some(lr));
     let rl = TwoThreeTree::new_two_node(5, None, None);
     let rr = TwoThreeTree::new_two_node(7, None, None);

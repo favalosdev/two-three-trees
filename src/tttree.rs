@@ -1,7 +1,7 @@
 pub enum TwoThreeTree<T: Copy + Ord> {
     Leaf,
-    TwoNode { x: T, l: Box<TwoThreeTree<T>>, r: Box<TwoThreeTree<T>> },
-    ThreeNode { x: T, y: T, l: Box<TwoThreeTree<T>>, m: Box<TwoThreeTree<T>>, r: Box<TwoThreeTree<T>> }
+    TwoNode { x: T, l: Box<Self>, r: Box<Self> },
+    ThreeNode { x: T, y: T, l: Box<Self>, m: Box<Self>, r: Box<Self> }
 }
 
 impl<T: Copy + Ord> TwoThreeTree<T> {
