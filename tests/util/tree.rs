@@ -44,11 +44,12 @@ pub fn verify_well_ordering<T: Copy + Ord, C: Comparison<T>>(node: TwoThreeTree<
             verify_well_ordering(*r, GreaterThan { pivot: x })
         },
         ThreeNode { x, y, l, m, r } => {
+            processor.check(&x) &&
+            processor.check(&y) &&
             verify_well_ordering(*l, LessThan { pivot: x} ) &&
             verify_well_ordering(*m, InInterval { beggining: x, end: y }) &&
             verify_well_ordering(*r, GreaterThan { pivot: y }) &&
-            processor.check(&x) &&
-            processor.check(&y)
+            
         }
     }
 }
