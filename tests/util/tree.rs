@@ -71,21 +71,21 @@ fn get_leftmost<T: Ord + Copy>(node: &TwoThreeTree<T>) -> Option<&T> {
     }
 }
 
-fn vfw_aux<T: Copy + Ord, C: Comparison<T>>(node: &TwoThreeTree<T>, processor: C) -> bool {
+fn vwo_aux<T: Copy + Ord, C: Comparison<T>>(node: &TwoThreeTree<T>, processor: C) -> bool {
     match node {
         Leaf => true,
         TwoNode { x, l, r } => {
             processor.check(&x) &&
-            vfw_aux(l, LessThan { pivot: *x } ) &&
-            vfw_aux(r, GreaterThan { pivot: *x })
+            vwo_aux(l, LessThan { pivot: *x } ) &&
+            vwo_aux(r, GreaterThan { pivot: *x })
         },
         ThreeNode { x, y, l, m, r } => {
             x <= y &&
             processor.check(&x) &&
             processor.check(&y) &&
-            vfw_aux(l, LessThan { pivot: *x } ) &&
-            vfw_aux(m, InBetween { start: *x, end: *y }) &&
-            vfw_aux(r, GreaterThan { pivot: *y })
+            vwo_aux(l, LessThan { pivot: *x } ) &&
+            vwo_aux(m, InBetween { start: *x, end: *y }) &&
+            vwo_aux(r, GreaterThan { pivot: *y })
         }
     }
 }
@@ -95,8 +95,8 @@ pub fn verify_well_ordering<T: Copy + Ord>(node: &TwoThreeTree<T>) -> bool {
         TwoNode { x, l, r } => {
             *get_rightmost(&(*l)).unwrap_or(&x) <= *x &&
             *get_leftmost(&(*r)).unwrap_or(&x) >= *x &&
-            vfw_aux(l, LessThan { pivot: *x }) &&
-            vfw_aux(r, GreaterThan { pivot: *x })
+            vwo_aux(l, LessThan { pivot: *x }) &&
+            vwo_aux(r, GreaterThan { pivot: *x })
         },
         ThreeNode { x, y, l, m, r } => {
             x <= y &&
@@ -104,30 +104,30 @@ pub fn verify_well_ordering<T: Copy + Ord>(node: &TwoThreeTree<T>) -> bool {
             *get_leftmost(&(*m)).unwrap_or(&x) >= *x &&
             *get_rightmost(&(*m)).unwrap_or(&x) <= *y &&
             *get_leftmost(&(*r)).unwrap_or(&x) >= *y &&
-            vfw_aux(l, LessThan { pivot: *x }) &&
-            vfw_aux(m, InBetween { start: *x, end: *y }) &&
-            vfw_aux(r, GreaterThan { pivot: *x })
+            vwo_aux(l, LessThan { pivot: *x }) &&
+            vwo_aux(m, InBetween { start: *x, end: *y }) &&
+            vwo_aux(r, GreaterThan { pivot: *x })
         },
         Leaf => true
     }
 }
 
-fn vfh_aux<T: Copy + Ord>(node: &TwoThreeTree<T>, height: usize, acc: usize) -> bool {
+fn vhi_aux<T: Copy + Ord>(node: &TwoThreeTree<T>, height: usize, acc: usize) -> bool {
     match node {
         Leaf => height == acc,
         TwoNode { l, r, ..} => {
-            vfh_aux(&(*l), height, acc + 1) &&
-            vfh_aux(&(*r), height, acc + 1)
+            vhi_aux(&(*l), height, acc + 1) &&
+            vhi_aux(&(*r), height, acc + 1)
         },
         ThreeNode { l, m, r, .. } => {
-            vfh_aux(&(*l), height, acc + 1) &&
-            vfh_aux(&(*m), height, acc + 1) &&
-            vfh_aux(&(*r), height, acc + 1)
+            vhi_aux(&(*l), height, acc + 1) &&
+            vhi_aux(&(*m), height, acc + 1) &&
+            vhi_aux(&(*r), height, acc + 1)
         }
     }
 }
 
 pub fn verify_height_invariance<T: Copy + Ord>(node: &TwoThreeTree<T>) -> bool {
     let height = get_height(node);
-    vfh_aux(node, height, 0)
+    vhi_aux(node, height, 0)
 }
