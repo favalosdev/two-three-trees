@@ -5,10 +5,6 @@ pub enum TwoThreeTree<T: Copy + Ord> {
 }
 
 impl<T: Copy + Ord> TwoThreeTree<T> {
-    pub fn new_leaf() -> Self {
-        TwoThreeTree::Leaf
-    }
-
     pub fn new_two_node(x: T, l: Option<TwoThreeTree<T>>, r: Option<TwoThreeTree<T>>) -> Self {
         TwoThreeTree::TwoNode {
             x,
