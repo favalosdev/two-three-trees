@@ -48,7 +48,7 @@ pub fn verify_well_ordering<T: Copy + Ord, C: Comparison<T>>(node: TwoThreeTree<
             processor.check(&y) &&
             verify_well_ordering(*l, LessThan { pivot: x} ) &&
             verify_well_ordering(*m, InInterval { beggining: x, end: y }) &&
-            verify_well_ordering(*r, GreaterThan { pivot: y }) &&
+            verify_well_ordering(*r, GreaterThan { pivot: y })
             
         }
     }
