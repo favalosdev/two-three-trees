@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "two-three-trees"
+name = "two_three_trees"
 version = "0.1.0"

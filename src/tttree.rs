@@ -1,12 +1,10 @@
-pub mod example;
-
-pub enum TwoThreeTree<T> {
+pub enum TwoThreeTree<T: Ord> {
     Leaf,
     TwoNode { x: T, l: Box<TwoThreeTree<T>>, r: Box<TwoThreeTree<T>> },
     ThreeNode { x: T, y: T, l: Box<TwoThreeTree<T>>, m: Box<TwoThreeTree<T>>, r: Box<TwoThreeTree<T>> }
 }
 
-impl<T> TwoThreeTree<T> {
+impl<T: Ord> TwoThreeTree<T> {
     pub fn new_leaf() -> Self {
         TwoThreeTree::Leaf
     }
@@ -28,7 +26,4 @@ impl<T> TwoThreeTree<T> {
             r: Box::new(r.unwrap_or(TwoThreeTree::Leaf))
         }
     }
-}
-
-pub fn verify<T>(root: TwoThreeTree<T>) -> bool {
 }

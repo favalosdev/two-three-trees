@@ -1,4 +1,4 @@
-use super::TwoThreeTree;
+use two_three_trees::tttree::TwoThreeTree;
 
 pub fn ex_1() -> TwoThreeTree<u8> {
     let ll = TwoThreeTree::new_two_node(1, None, None);
