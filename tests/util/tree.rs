@@ -102,8 +102,8 @@ pub fn verify_well_ordering<T: Copy + Ord>(node: &TwoThreeTree<T>) -> bool {
             x <= y &&
             *get_rightmost(&(*l)).unwrap_or(&x) <= *x &&
             *get_leftmost(&(*m)).unwrap_or(&x) >= *x &&
-            *get_rightmost(&(*m)).unwrap_or(&x) <= *y &&
-            *get_leftmost(&(*r)).unwrap_or(&x) >= *y &&
+            *get_rightmost(&(*m)).unwrap_or(&y) <= *y &&
+            *get_leftmost(&(*r)).unwrap_or(&y) >= *y &&
             vwo_aux(l, LessThan { pivot: *x }) &&
             vwo_aux(m, InBetween { start: *x, end: *y }) &&
             vwo_aux(r, GreaterThan { pivot: *x })
