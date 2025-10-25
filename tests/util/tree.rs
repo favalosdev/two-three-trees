@@ -1,8 +1,3 @@
-/*
- Let's go with the rule implementation:
- a. For two nodes, every value appearing in l must be <= X
- b. For three nodes, every value appearing in r must be >= X
- */
 use two_three_trees::tttree::TwoThreeTree;
 use TwoThreeTree::{Leaf, TwoNode, ThreeNode};
 
