@@ -77,7 +77,7 @@ pub fn verify_well_ordering<T: Copy + Ord>(node: TwoThreeTree<T>) -> bool {
     }
 }
 
-pub fn vfw_aux<T: Copy + Ord, C: Comparison<T>>(node: TwoThreeTree<T>, processor: C) -> bool {
+fn vfw_aux<T: Copy + Ord, C: Comparison<T>>(node: TwoThreeTree<T>, processor: C) -> bool {
     match node {
         Leaf => true,
         TwoNode { x, l, r } => {
@@ -96,7 +96,7 @@ pub fn vfw_aux<T: Copy + Ord, C: Comparison<T>>(node: TwoThreeTree<T>, processor
     }
 }
 
-pub fn get_rightmost<T: Ord + Copy>(node: &TwoThreeTree<T>) -> &T {
+fn get_rightmost<T: Ord + Copy>(node: &TwoThreeTree<T>) -> &T {
     match node {
         TwoNode { r , x, .. } => {
             match **r {
@@ -114,7 +114,7 @@ pub fn get_rightmost<T: Ord + Copy>(node: &TwoThreeTree<T>) -> &T {
     }
 }
 
-pub fn get_leftmost<T: Ord + Copy>(node: &TwoThreeTree<T>) -> &T {
+fn get_leftmost<T: Ord + Copy>(node: &TwoThreeTree<T>) -> &T {
    match node {
         TwoNode { l, x, .. } => {
             match **l {
