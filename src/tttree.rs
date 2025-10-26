@@ -1,10 +1,10 @@
-pub enum TwoThreeTree<T: Copy + Ord> {
+pub enum TwoThreeTree<T: Ord> {
     Leaf,
     TwoNode { x: T, l: Box<Self>, r: Box<Self> },
     ThreeNode { x: T, y: T, l: Box<Self>, m: Box<Self>, r: Box<Self> }
 }
 
-impl<T: Copy + Ord> TwoThreeTree<T> {
+impl<T: Ord> TwoThreeTree<T> {
     pub fn new_two_node(x: T, l: Option<TwoThreeTree<T>>, r: Option<TwoThreeTree<T>>) -> Self {
         TwoThreeTree::TwoNode {
             x,
@@ -24,7 +24,7 @@ impl<T: Copy + Ord> TwoThreeTree<T> {
     }
 }
 
-pub fn is_terminal<T: Copy + Ord>(node: &TwoThreeTree<T>) -> bool {
+pub fn is_terminal<T: Ord>(node: &TwoThreeTree<T>) -> bool {
     match node {
         TwoThreeTree::Leaf => false,
         TwoThreeTree::TwoNode { l, .. } => {
@@ -43,7 +43,7 @@ pub fn is_terminal<T: Copy + Ord>(node: &TwoThreeTree<T>) -> bool {
     }
 }
 
-fn get_height_aux<T: Copy + Ord>(node: &TwoThreeTree<T>, acc: usize) -> usize {
+fn get_height_aux<T: Ord>(node: &TwoThreeTree<T>, acc: usize) -> usize {
     match node {
         TwoThreeTree::Leaf => acc,
         TwoThreeTree::TwoNode { l, ..} => get_height_aux(&(*l), acc + 1),
@@ -51,9 +51,9 @@ fn get_height_aux<T: Copy + Ord>(node: &TwoThreeTree<T>, acc: usize) -> usize {
     }
 }
 
-pub fn get_height<T: Copy + Ord>(node: &TwoThreeTree<T>) -> usize {
+pub fn get_height<T: Ord>(node: &TwoThreeTree<T>) -> usize {
     get_height_aux(node, 0)
 }
 
 // Function signature
-pub fn insert<T: Copy + Ord>(node: &TwoThreeTree<T>, value: T) {}
+// pub fn insert<T: Ord>(node: &TwoThreeTree<T>, value: T) {}
