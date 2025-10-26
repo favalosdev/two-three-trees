@@ -14,6 +14,7 @@ impl<T: Copy + Ord> Comparison<T> for LessThan<T> {
         *x <= self.pivot 
     }
 }
+
 struct GreaterThan<T: Copy + Ord> {
     pivot: T
 }

@@ -24,6 +24,25 @@ impl<T: Copy + Ord> TwoThreeTree<T> {
     }
 }
 
+pub fn is_terminal<T: Copy + Ord>(node: &TwoThreeTree<T>) -> bool {
+    match node {
+        TwoThreeTree::Leaf => false,
+        TwoThreeTree::TwoNode { l, .. } => {
+            match **l {
+                // We only need to check whether one of the children is a leaf because of path length invariance
+                TwoThreeTree::Leaf => true,
+                _ => false
+            }
+        },
+        TwoThreeTree::ThreeNode { l, .. } => {
+            match **l {
+                TwoThreeTree::Leaf => true,
+                _ => false
+            }
+        }
+    }
+}
+
 fn get_height_aux<T: Copy + Ord>(node: &TwoThreeTree<T>, acc: usize) -> usize {
     match node {
         TwoThreeTree::Leaf => acc,
@@ -35,3 +54,6 @@ fn get_height_aux<T: Copy + Ord>(node: &TwoThreeTree<T>, acc: usize) -> usize {
 pub fn get_height<T: Copy + Ord>(node: &TwoThreeTree<T>) -> usize {
     get_height_aux(node, 0)
 }
+
+// Function signature
+pub fn insert<T: Copy + Ord>(node: &TwoThreeTree<T>, value: T) {}
