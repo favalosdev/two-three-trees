@@ -1,6 +1,7 @@
 use two_three_trees::tttree::{TwoThreeTree, get_height};
 use TwoThreeTree::{Leaf, TwoNode, ThreeNode};
 
+#[derive(Clone, Copy)]
 enum Comparison {
     GET, // Greater or equal than
     LET // Less or equal than
@@ -42,28 +43,28 @@ fn get_leftmost<T: Ord>(node: &TwoThreeTree<T>) -> Option<&T> {
     }
 }
 
-fn check<T: Ord>(val: &T, pivot: &T, c: &Comparison) -> bool {
+fn check<T: Ord>(val: &T, pivot: &T, c: Comparison) -> bool {
     match c {
-        Comparison::GET => val >= pivot, 
+        Comparison::GET => val >= pivot,
         Comparison::LET => val <= pivot
     }
 }
 
-fn vwo_aux_simple<T: Ord>(node: &TwoThreeTree<T>, parent: &T, c: &Comparison) -> bool {
+fn vwo_aux_simple<T: Ord>(node: &TwoThreeTree<T>, parent: &T, mode: Comparison) -> bool {
     match node {
         Leaf => true,
         TwoNode { x, l, r } => {
-            check(x, parent, c) &&
-            vwo_aux_simple(l, x, &Comparison::LET) &&
-            vwo_aux_simple(r, x, &Comparison::GET)
+            check(x, parent, mode) &&
+            vwo_aux_simple(l, x, Comparison::LET) &&
+            vwo_aux_simple(r, x, Comparison::GET)
         },
         ThreeNode { x, y, l, m, r } => {
             x <= y &&
-            check(x, parent, c) &&
-            check(y, parent, c) &&
-            vwo_aux_simple(l, x, &Comparison::LET) &&
+            check(x, parent, mode) &&
+            check(y, parent, mode) &&
+            vwo_aux_simple(l, x, Comparison::LET) &&
             vwo_aux_interval(m, x, y) &&
-            vwo_aux_simple(r, x, &Comparison::GET)
+            vwo_aux_simple(r, x, Comparison::GET)
         }
     }
 }
@@ -74,8 +75,8 @@ fn vwo_aux_interval<T: Ord>(node: &TwoThreeTree<T>, start: &T, end: &T) -> bool 
         TwoNode { x, l, r } => {
             start <= x  &&
             x <= end &&
-            vwo_aux_simple(l, x, &Comparison::LET) &&
-            vwo_aux_simple(r, x, &Comparison::GET)
+            vwo_aux_simple(l, x, Comparison::LET) &&
+            vwo_aux_simple(r, x, Comparison::GET)
         },
         ThreeNode { x, y, l, m, r } => {
             x <= y &&
@@ -83,9 +84,9 @@ fn vwo_aux_interval<T: Ord>(node: &TwoThreeTree<T>, start: &T, end: &T) -> bool 
             x <= end &&
             start <= y &&
             y <= end &&
-            vwo_aux_simple(l, x, &Comparison::LET) &&
+            vwo_aux_simple(l, x, Comparison::LET) &&
             vwo_aux_interval(m, x, y) &&
-            vwo_aux_simple(r, x, &Comparison::GET)
+            vwo_aux_simple(r, x, Comparison::GET)
         }
     } 
 }
@@ -95,8 +96,8 @@ pub fn verify_well_ordering<T: Ord>(node: &TwoThreeTree<T>) -> bool {
         TwoNode { x, l, r } => {
             *get_rightmost(l).unwrap_or(&x) <= *x &&
             *get_leftmost(r).unwrap_or(&x) >= *x &&
-            vwo_aux_simple(l, x, &Comparison::LET) &&
-            vwo_aux_simple(r, x, &Comparison::GET)
+            vwo_aux_simple(l, x, Comparison::LET) &&
+            vwo_aux_simple(r, x, Comparison::GET)
         },
         ThreeNode { x, y, l, m, r } => {
             x <= y &&
@@ -105,9 +106,9 @@ pub fn verify_well_ordering<T: Ord>(node: &TwoThreeTree<T>) -> bool {
             *get_rightmost(m).unwrap_or(&y) <= *y &&
             *get_leftmost(r).unwrap_or(&y) >= *y &&
             // vwo_aux(l, LessThan { pivot: *x }) &&
-            vwo_aux_simple(l, x, &Comparison::LET) &&
+            vwo_aux_simple(l, x, Comparison::LET) &&
             vwo_aux_interval(m, x, y) &&
-            vwo_aux_simple(r, y, &Comparison::GET) 
+            vwo_aux_simple(r, y, Comparison::GET) 
         },
         Leaf => true
     }
