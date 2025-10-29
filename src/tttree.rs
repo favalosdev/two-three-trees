@@ -46,8 +46,8 @@ pub fn is_terminal<T: Ord>(node: &TwoThreeTree<T>) -> bool {
 fn get_height_aux<T: Ord>(node: &TwoThreeTree<T>, acc: usize) -> usize {
     match node {
         TwoThreeTree::Leaf => acc,
-        TwoThreeTree::TwoNode { l, ..} => get_height_aux(&(*l), acc + 1),
-        TwoThreeTree::ThreeNode { l, ..} => get_height_aux(&(*l), acc + 1),
+        TwoThreeTree::TwoNode { l, ..} => get_height_aux(l, acc + 1),
+        TwoThreeTree::ThreeNode { l, ..} => get_height_aux(l, acc + 1),
     }
 }
 
