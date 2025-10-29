@@ -30,13 +30,13 @@ fn get_leftmost<T: Ord>(node: &TwoThreeTree<T>) -> Option<&T> {
         TwoNode { l, x, .. } => {
             match **l {
                 Leaf => Some(x),
-                _ => get_rightmost(l)
+                _ => get_leftmost(l)
             }
         },
         ThreeNode { l, x, .. } => {
             match **l {
                 Leaf => Some(x),
-                _ => get_rightmost(l)
+                _ => get_leftmost(l)
             }
         },
         Leaf => None,
