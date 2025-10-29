@@ -105,7 +105,6 @@ pub fn verify_well_ordering<T: Ord>(node: &TwoThreeTree<T>) -> bool {
             *get_leftmost(m).unwrap_or(&x) >= *x &&
             *get_rightmost(m).unwrap_or(&y) <= *y &&
             *get_leftmost(r).unwrap_or(&y) >= *y &&
-            // vwo_aux(l, LessThan { pivot: *x }) &&
             vwo_aux_simple(l, x, Comparison::LET) &&
             vwo_aux_interval(m, x, y) &&
             vwo_aux_simple(r, y, Comparison::GET) 
